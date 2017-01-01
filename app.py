@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+import os
 
 from flask import Flask #request
 from flask_jwt import JWT #, jwt_required
@@ -14,7 +15,9 @@ from resources.store import Store, StoreList
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
+#  get method contain two parameter, first is environment variable, second is default
+# 첫번째 db를 못찾으면 두번째로 간다
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.secret_key = 'jaeyeon'
